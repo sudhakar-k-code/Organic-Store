@@ -25,7 +25,10 @@
                     <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     <li class="nav-item">
-                        <a class="nav-link text-success" id="whatsapp-link" href="#" target="_blank">
+                        <a class="nav-link text-success" 
+						id="whatsapp-link" 
+						href="https://wa.me/123456789?text=Hi,%20I%20would%20like%20to%20place%20an%20order."  
+						target="_blank">
                             <img src="images/whatsapp-icon.png" alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 5px;"> WhatsApp
                         </a>
                     </li>
@@ -43,7 +46,7 @@
                 <h5>Order via WhatsApp</h5>
                 <a 
                     id="whatsapp-button" 
-                    href="#" 
+                    href="https://wa.me/123456789?text=Hi,%20I%20would%20like%20to%20place%20an%20order."  
                     target="_blank" 
                     class="btn btn-light">
                     <img src="images/whatsapp-icon.png" alt="WhatsApp" width="20" height="20"> Contact Us on WhatsApp
@@ -64,69 +67,13 @@
     <section id="products" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center">Our Products</h2>
-            <div class="row g-4 mt-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="card">
-                        <img src="images/product1.jpg" class="card-img-top product-image" alt="Organic Vegetables">
-                        <div class="card-body">
-                            <h5 class="card-title">Organic Vegetables</h5>
-                            <p class="card-text">Freshly picked organic vegetables, grown without pesticides.</p>
-                            <p class="mrp"><s>₹ 3.99/kg</s></p>
-                            <p class="price">₹ 3.59/kg</p>
-                            <label for="quantity1" class="form-label">Select Quantity (kg):</label>
-                            <select id="quantity1" class="form-select quantity" data-product-name="Organic Vegetables">
-                                <option value="0">Select</option>
-                                <option value="0.25">250 g</option>
-                                <option value="0.5">500 g</option>
-                                <option value="1">1 kg</option>
-                                <option value="2">2 kg</option>
-                                <option value="3">3 kg</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card">
-                        <img src="images/product2.jpg" class="card-img-top product-image" alt="Natural Honey">
-                        <div class="card-body">
-                            <h5 class="card-title">Natural Honey</h5>
-                            <p class="card-text">Pure and natural honey straight from the hive.</p>
-                            <p class="mrp"><s>₹ 6.49/jar</s></p>
-                            <p class="price">₹ 5.84/jar</p>
-                            <label for="quantity2" class="form-label">Select Quantity (jars):</label>
-                            <select id="quantity2" class="form-select quantity" data-product-name="Natural Honey">
-                                <option value="0">Select</option>
-                                <option value="1">1 jar</option>
-                                <option value="2">2 jars</option>
-                                <option value="3">3 jars</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card">
-                        <img src="images/product3.jpg" class="card-img-top product-image" alt="Fresh Fruits">
-                        <div class="card-body">
-                            <h5 class="card-title">Fresh Fruits</h5>
-                            <p class="card-text">Seasonal fruits packed with nutrition and flavor.</p>
-                            <p class="mrp"><s>₹ 4.49/kg</s></p>
-                            <p class="price">₹ 4.04/kg</p>
-                            <label for="quantity3" class="form-label">Select Quantity (kg):</label>
-                            <select id="quantity3" class="form-select quantity" data-product-name="Fresh Fruits">
-                                <option value="0">Select</option>
-                                <option value="0.25">250 g</option>
-                                <option value="0.5">500 g</option>
-                                <option value="1">1 kg</option>
-                                <option value="2">2 kg</option>
-                                <option value="3">3 kg</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<div class="row g-4 mt-4" id="product-list">
+                <!-- Products will be populated here from JavaScript -->
+				</div>
             <button class="btn btn-success mt-4" id="review-order">Review & Order</button>
-        </div>
+		</div>
     </section>
+	
 
     <!-- Order Review Modal -->
     <div class="modal fade" id="orderReviewModal" tabindex="-1" aria-labelledby="orderReviewModalLabel" aria-hidden="true">
@@ -177,25 +124,7 @@
                     </iframe>
                 </div>
             </div>
-
-            <!-- Contact Form -->
-            <form class="mt-4">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control" id="message" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-success">Send Message</button>
-            </form>
-        </div>
-    </section>
+	    </section>
 
     <!-- Footer -->
     <footer class="bg-success text-white text-center py-3">
@@ -204,54 +133,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script> <!-- Link to your JS file -->
-    <script>
-        document.getElementById('review-order').addEventListener('click', function () {
-            const quantities = document.querySelectorAll('.quantity');
-            let message = "Hi, I would like to order:\n";
-            let orderSummary = '';
-            let totalPrice = 0;
-
-            quantities.forEach(select => {
-                const productName = select.getAttribute('data-product-name');
-                const quantity = parseFloat(select.value);
-                if (quantity > 0) {
-                    let priceText = select.parentElement.querySelector('.price').innerText;
-                    let price = parseFloat(priceText.replace('₹ ', '').replace('/kg', '').replace('/jar', ''));
-                    totalPrice += price * quantity;
-                    orderSummary += `<p>${quantity} x ${productName} at ${priceText}</p>`;
-                }
-            });
-
-            document.getElementById('order-summary').innerHTML = orderSummary || '<p>No products selected.</p>';
-            document.getElementById('total-amount').innerText = `₹ ${totalPrice.toFixed(2)}`;
-            const orderReviewModal = new bootstrap.Modal(document.getElementById('orderReviewModal'));
-            orderReviewModal.show();
-        });
-
-        document.getElementById('generate-whatsapp-link').addEventListener('click', function () {
-            const quantities = document.querySelectorAll('.quantity');
-            let message = "Hi, I would like to order:\n";
-            let totalPrice = 0;
-
-            quantities.forEach(select => {
-                const productName = select.getAttribute('data-product-name');
-                const quantity = parseFloat(select.value);
-                if (quantity > 0) {
-                    let priceText = select.parentElement.querySelector('.price').innerText;
-                    let price = parseFloat(priceText.replace('₹ ', '').replace('/kg', '').replace('/jar', ''));
-                    totalPrice += price * quantity;
-                    message += `${quantity} x ${productName} at ${priceText}\n`;
-                }
-            });
-
-            message += `Total: ₹ ${totalPrice.toFixed(2)}`;
-            const whatsappNumber = '9047812407'; // Replace with your WhatsApp number
-            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-            // Open the WhatsApp link
-            window.open(whatsappLink, '_blank');
-        });
-    </script>
+    <!-- External JS -->
+    <script src="js/script.js"></script>
 </body>
 </html>

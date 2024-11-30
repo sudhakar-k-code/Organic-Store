@@ -6,7 +6,6 @@ body {
 }
 
 header {
-    background: url('../images/hero.jpg') no-repeat center center/cover;
     min-height: 300px;
     display: flex;
     justify-content: center;
