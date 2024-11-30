@@ -117,6 +117,7 @@ function addToCart(productName, quantity, price) {
 
     updateCartBadge();
     updateCartModal();
+	showCartNotification(); // Show notification to encourage user to check the cart
 }
 
 // Function to remove an item from the cart by name
@@ -192,3 +193,26 @@ function generateWhatsAppLink() {
 
 // Event Listener for Place Order button
 document.getElementById('place-order').addEventListener('click', generateWhatsAppLink);
+
+// Function to show cart notification below the cart icon
+function showCartNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'cart-notification';
+    notification.innerHTML = `
+        <div class="notification-arrow"></div>
+        <div class="notification-content">
+            <strong>Product added!</strong> Check your cart to place an order.
+        </div>
+    `;
+
+    const cartIcon = document.getElementById('cart-icon');
+    cartIcon.insertAdjacentElement('afterend', notification); // Place notification below the cart icon
+
+    // Automatically remove notification after 3 seconds
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => notification.remove(), 500); // Delay for fade-out effect
+    }, 3000);
+}
+
+

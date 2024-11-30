@@ -123,19 +123,6 @@ footer {
 }
 
 
-.notification {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -150%);
-    background-color: #28a745; /* Green background */
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 1000; /* Ensure it appears above other elements */
-    transition: all 0.5s ease; /* Smooth transition for the display */
-}
-
 /* Additional styling for cart icon */
 #cart-container {
     display: inline-block; /* Keep it inline with the navbar items */
@@ -167,6 +154,41 @@ footer {
     display: inline-block; /* Keep it inline with the navbar items */
     margin-left: 2px; /* Space between menu items and cart icon */
 }
+
+.cart-notification {
+    position: absolute; /* Position it relative to the cart icon */
+    background-color: #f8f9fa; /* Light background */
+    border: 1px solid #007bff; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px;
+    margin-top: 5px; /* Space above the notification */
+    z-index: 1000; /* Ensure it's above other elements */
+    width: 250px; /* Set a width for the notification */
+    left: 50%; /* Center it */
+    transform: translateX(-50%); /* Adjust for centering */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
+}
+
+.notification-arrow {
+    position: absolute;
+    bottom: 100%; /* Position it above the notification */
+    left: 50%; /* Center it horizontally */
+    margin-left: -5px; /* Adjust for arrow size */
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #007bff transparent; /* Arrow color */
+}
+
+.notification-content {
+    text-align: center; /* Center the text */
+}
+
+/* Fade-out effect */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
 
 
 
