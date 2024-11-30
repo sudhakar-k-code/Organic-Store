@@ -21,7 +21,16 @@
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-	
+			
+			<!-- Cart Icon -->
+			<div class="nav-item position-relative" id="cart-container">
+				<a class="nav-link" href="#" id="cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
+					<img src="images/cart-icon.png" alt="Cart" style="width: 25px; height: 25px;">
+					<span id="cart-badge" class="badge bg-danger position-absolute top-5 start-150 translate-middle">0</span>
+				</a>
+			</div>
+			</div>
+		
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link" href="#about">About</a></li>
@@ -30,14 +39,7 @@
 				</ul>
 			</div>
 	
-			<!-- Cart Icon -->
-			<div class="nav-item position-relative" id="cart-container">
-				<a class="nav-link" href="#" id="cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
-					<img src="images/cart-icon.png" alt="Cart" style="width: 25px; height: 25px;">
-					<span id="cart-badge" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
-				</a>
-			</div>
-		</div>
+
 	</nav>
 
 
