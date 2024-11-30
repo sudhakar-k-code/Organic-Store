@@ -73,8 +73,15 @@
                             <p class="card-text">Freshly picked organic vegetables, grown without pesticides.</p>
                             <p class="mrp"><s>₹ 3.99/kg</s></p>
                             <p class="price">₹ 3.59/kg</p>
-                            <label for="quantity1" class="form-label">Quantity (kg):</label>
-                            <input type="number" id="quantity1" class="form-control quantity" data-product-name="Organic Vegetables" value="0" min="0">
+                            <label for="quantity1" class="form-label">Select Quantity (kg):</label>
+                            <select id="quantity1" class="form-select quantity" data-product-name="Organic Vegetables">
+                                <option value="0">Select</option>
+                                <option value="0.25">250 g</option>
+                                <option value="0.5">500 g</option>
+                                <option value="1">1 kg</option>
+                                <option value="2">2 kg</option>
+                                <option value="3">3 kg</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -86,8 +93,13 @@
                             <p class="card-text">Pure and natural honey straight from the hive.</p>
                             <p class="mrp"><s>₹ 6.49/jar</s></p>
                             <p class="price">₹ 5.84/jar</p>
-                            <label for="quantity2" class="form-label">Quantity (jars):</label>
-                            <input type="number" id="quantity2" class="form-control quantity" data-product-name="Natural Honey" value="0" min="0">
+                            <label for="quantity2" class="form-label">Select Quantity (jars):</label>
+                            <select id="quantity2" class="form-select quantity" data-product-name="Natural Honey">
+                                <option value="0">Select</option>
+                                <option value="1">1 jar</option>
+                                <option value="2">2 jars</option>
+                                <option value="3">3 jars</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -99,8 +111,15 @@
                             <p class="card-text">Seasonal fruits packed with nutrition and flavor.</p>
                             <p class="mrp"><s>₹ 4.49/kg</s></p>
                             <p class="price">₹ 4.04/kg</p>
-                            <label for="quantity3" class="form-label">Quantity (kg):</label>
-                            <input type="number" id="quantity3" class="form-control quantity" data-product-name="Fresh Fruits" value="0" min="0">
+                            <label for="quantity3" class="form-label">Select Quantity (kg):</label>
+                            <select id="quantity3" class="form-select quantity" data-product-name="Fresh Fruits">
+                                <option value="0">Select</option>
+                                <option value="0.25">250 g</option>
+                                <option value="0.5">500 g</option>
+                                <option value="1">1 kg</option>
+                                <option value="2">2 kg</option>
+                                <option value="3">3 kg</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -193,11 +212,11 @@
             let orderSummary = '';
             let totalPrice = 0;
 
-            quantities.forEach(input => {
-                const productName = input.getAttribute('data-product-name');
-                const quantity = input.value;
+            quantities.forEach(select => {
+                const productName = select.getAttribute('data-product-name');
+                const quantity = parseFloat(select.value);
                 if (quantity > 0) {
-                    let priceText = input.parentElement.querySelector('.price').innerText;
+                    let priceText = select.parentElement.querySelector('.price').innerText;
                     let price = parseFloat(priceText.replace('₹ ', '').replace('/kg', '').replace('/jar', ''));
                     totalPrice += price * quantity;
                     orderSummary += `<p>${quantity} x ${productName} at ${priceText}</p>`;
@@ -215,11 +234,11 @@
             let message = "Hi, I would like to order:\n";
             let totalPrice = 0;
 
-            quantities.forEach(input => {
-                const productName = input.getAttribute('data-product-name');
-                const quantity = input.value;
+            quantities.forEach(select => {
+                const productName = select.getAttribute('data-product-name');
+                const quantity = parseFloat(select.value);
                 if (quantity > 0) {
-                    let priceText = input.parentElement.querySelector('.price').innerText;
+                    let priceText = select.parentElement.querySelector('.price').innerText;
                     let price = parseFloat(priceText.replace('₹ ', '').replace('/kg', '').replace('/jar', ''));
                     totalPrice += price * quantity;
                     message += `${quantity} x ${productName} at ${priceText}\n`;
