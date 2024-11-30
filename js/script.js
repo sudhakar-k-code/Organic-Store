@@ -5,16 +5,16 @@ function handleZoomOnScroll() {
     const productImages = document.querySelectorAll('.product-image');
 
     productImages.forEach(image => {
-        // Calculate scroll position and apply zoom effect
-        const scrollY = window.scrollY || window.pageYOffset; // Get scroll position
-        const offset = image.offsetTop; // Image top offset
+        const rect = image.getBoundingClientRect(); // Get image position relative to the viewport
+        const windowHeight = window.innerHeight; // Height of the visible part of the window
 
-        // Check if the image is in the viewport
-        if (scrollY + window.innerHeight > offset && scrollY < offset + image.clientHeight) {
-            const zoomLevel = Math.min(1.2, 1 + (scrollY - offset + window.innerHeight) / 1000); // Zoom calculation
-            image.style.transform = `scale(${zoomLevel})`; // Apply zoom
+        // Check if the image is entering the viewport
+        if (rect.top >= 0 && rect.bottom <= windowHeight) {
+            const progress = (windowHeight - rect.top) / windowHeight; // Calculate scroll progress
+            const zoomLevel = 1 + progress * 0.2; // Scale between 1 to 1.2 based on progress
+            image.style.transform = `scale(${zoomLevel})`;
         } else {
-            image.style.transform = 'scale(1)'; // Reset scale if out of viewport
+            image.style.transform = 'scale(1)'; // Reset zoom when out of viewport
         }
     });
 }
