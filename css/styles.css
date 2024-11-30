@@ -135,25 +135,32 @@ footer {
     transition: all 0.5s ease; /* Smooth transition for the display */
 }
 
+/* Additional styling for cart icon */
 #cart-container {
-    display: inline-block; /* Make sure the cart container behaves as inline */
-    position: relative; /* Relative positioning for absolute elements inside */
+    display: inline-block; /* Keep it inline with the navbar items */
+    margin-left: 15px; /* Space between menu items and cart icon */
 }
 
 #cart-icon {
-    cursor: pointer; /* Change cursor to pointer on hover */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    position: relative; /* Relative positioning for badge */
+    width: 30px; /* Set a fixed width for the icon */
+    height: 30px; /* Set a fixed height for the icon */
 }
 
 #cart-badge {
-    position: absolute; /* Position the badge relative to the cart icon */
-    top: -10px; /* Adjust as needed */
-    right: -20px; /* Adjust as needed */
-    background-color: #dc3545; /* Bootstrap danger color */
+    position: absolute; /* Absolute positioning for badge */
+    top: -5px; /* Position above the cart icon */
+    right: -28px; /* Adjust to move right from the edge of the icon */
+    font-size: 0.7rem; /* Smaller font for badge */
+    padding: 2px 5px; /* Padding around the badge for better visibility */
+    border-radius: 50%; /* Round badge */
+    background-color: red; /* Badge color */
     color: white; /* Badge text color */
-    border-radius: 50%; /* Make it circular */
-    padding: 0.2em 0.6em; /* Padding for better look */
-    font-size: 0.75rem; /* Smaller font size for the badge */
-    line-height: 1; /* Adjust line height for centering */
+    min-width: 20px; /* Minimum width to avoid overlap */
+    text-align: center; /* Center align text within badge */
 }
+
+
 
 

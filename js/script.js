@@ -89,7 +89,13 @@ function loadProducts() {
             const quantity = parseFloat(e.target.value);
             const priceText = e.target.closest('.card-body').querySelector('.price').innerText;
             const price = parseFloat(priceText.replace('₹ ', '').replace('/kg', '').replace('/jar', ''));
-            addToCart(productName, quantity, price);
+
+            // If quantity is selected (not 0), add to cart, else remove from cart
+            if (quantity > 0) {
+                addToCart(productName, quantity, price);
+            } else {
+                removeFromCartByName(productName); // Remove the item if quantity is set to 0
+            }
         });
     });
 }
@@ -99,31 +105,28 @@ window.onload = loadProducts;
 
 // Function to add an item to the cart
 function addToCart(productName, quantity, price) {
-    if (quantity === 0) return;
-
     const totalPrice = quantity * price;
     const existingItem = cart.find(item => item.name === productName);
     
     if (existingItem) {
-        existingItem.quantity += quantity;
-        existingItem.totalPrice += totalPrice;
+        existingItem.quantity = quantity; // Update to new quantity directly
+        existingItem.totalPrice = totalPrice; // Update the total price accordingly
     } else {
         cart.push({ name: productName, quantity, price, totalPrice });
     }
 
     updateCartBadge();
     updateCartModal();
-    showCartNotification(); // Call the notification function
 }
 
-// Function to show the cart notification
-function showCartNotification() {
-    const cartNotification = document.getElementById('cart-notification');
-    cartNotification.style.display = 'block';
-
-    setTimeout(() => {
-        cartNotification.style.display = 'none';
-    }, 3000); // Notification will be visible for 3 seconds
+// Function to remove an item from the cart by name
+function removeFromCartByName(productName) {
+    const index = cart.findIndex(item => item.name === productName);
+    if (index !== -1) {
+        cart.splice(index, 1);
+        updateCartBadge();
+        updateCartModal();
+    }
 }
 
 // Function to update cart badge
@@ -144,7 +147,7 @@ function updateCartModal() {
 
     let cartHTML = '';
     totalAmount = 0;
-    cart.forEach((item, index) => {
+    cart.forEach(item => {
         const { name, quantity, price, totalPrice } = item;
         totalAmount += totalPrice;
 
@@ -156,7 +159,7 @@ function updateCartModal() {
                 </div>
                 <div>
                     <strong>₹ ${totalPrice.toFixed(2)}</strong>
-                    <button class="btn btn-sm btn-danger ms-3" onclick="removeFromCart(${index})">Remove</button>
+                    <button class="btn btn-sm btn-danger ms-3" onclick="removeFromCartByName('${name}')">Remove</button>
                 </div>
             </div>
         `;
@@ -164,13 +167,6 @@ function updateCartModal() {
 
     cartItemsContainer.innerHTML = cartHTML;
     cartTotal.innerText = `₹ ${totalAmount.toFixed(2)}`;
-}
-
-// Function to remove an item from the cart
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCartBadge();
-    updateCartModal();
 }
 
 // Attach click event for cart icon to review the cart
@@ -187,7 +183,7 @@ function generateWhatsAppLink() {
     });
 
     message += `Total: ₹ ${totalPrice.toFixed(2)}`;
-    const whatsappNumber = '9047812407'; // Replace with your WhatsApp number
+    const whatsappNumber = '123456789'; // Replace with your WhatsApp number
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     // Open the WhatsApp link
@@ -196,6 +192,3 @@ function generateWhatsAppLink() {
 
 // Event Listener for Place Order button
 document.getElementById('place-order').addEventListener('click', generateWhatsAppLink);
-
-
-
