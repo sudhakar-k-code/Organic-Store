@@ -1,5 +1,3 @@
-// script.js
-
 // Function to handle zooming on scroll
 function handleZoomOnScroll() {
     const productImages = document.querySelectorAll('.product-image');

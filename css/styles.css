@@ -24,7 +24,9 @@ h1, h2 {
 .product-image {
     height: 200px; /* Set a fixed height */
     object-fit: cover; /* Cover the space while maintaining aspect ratio */
-    transition: transform 0.5s ease, opacity 0.5s ease; /* Animation effects on hover */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Animation effects on hover/scroll */
+    z-index: 1; /* Ensure the image stays above text */
+    position: relative; /* Enable layering for image within the card */
 }
 
 /* Card Styles */
@@ -32,8 +34,14 @@ h1, h2 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: none;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Prevent zoomed image from overflowing the card */
     transition: transform 0.3s ease; /* Smooth transform transition */
+}
+
+.card-body {
+    position: relative; /* Ensure text inside card stays in position */
+    z-index: 2; /* Ensure text stays above image */
+    background: white; /* Background for better visibility */
 }
 
 .card:hover {
@@ -54,6 +62,7 @@ h1, h2 {
 .btn-success:hover {
     background-color: #28a745; /* Slightly brighter green on hover */
     transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
 }
 
 /* Animation Keyframes */
@@ -67,6 +76,7 @@ h1, h2 {
     font-size: 1rem;
     color: #dc3545; /* Red color for strikethrough MRP */
     text-decoration: line-through;
+    margin-bottom: 0.25rem;
 }
 
 .price {
@@ -80,4 +90,16 @@ footer {
     background-color: #28a745; /* Green footer */
     color: white;
     padding: 10px 0;
+}
+
+/* Adjust layout for better scrolling on mobile devices */
+.row.g-4 .col-lg-4, .col-md-6 {
+    margin-bottom: 2rem; /* Add space between cards */
+}
+
+/* Ensure proper layout for small screens */
+@media (max-width: 576px) {
+    .product-image {
+        height: 150px; /* Smaller images for mobile devices */
+    }
 }
