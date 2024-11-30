@@ -119,6 +119,7 @@ footer {
     top: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow to the navbar */
     background-color: #f8f9fa; /* Ensure the navbar has a solid background */
+	padding: 0.5rem 1rem; /* Adjust the padding for a tighter fit */
 }
 
 
@@ -139,6 +140,7 @@ footer {
 #cart-container {
     display: inline-block; /* Keep it inline with the navbar items */
     margin-left: 15px; /* Space between menu items and cart icon */
+	margin-left: 10px; /* Reduce margin to minimize space */
 }
 
 #cart-icon {
@@ -148,18 +150,27 @@ footer {
     height: 30px; /* Set a fixed height for the icon */
 }
 
+/* Adjust the badge position */
 #cart-badge {
     position: absolute; /* Absolute positioning for badge */
     top: -5px; /* Position above the cart icon */
-    right: -28px; /* Adjust to move right from the edge of the icon */
+    right: -15px; /* Adjust to position the badge */
     font-size: 0.7rem; /* Smaller font for badge */
     padding: 2px 5px; /* Padding around the badge for better visibility */
     border-radius: 50%; /* Round badge */
     background-color: red; /* Badge color */
     color: white; /* Badge text color */
-    min-width: 20px; /* Minimum width to avoid overlap */
-    text-align: center; /* Center align text within badge */
 }
+
+/* Cart Icon styles */
+#cart-container {
+    display: inline-block; /* Keep it inline with the navbar items */
+    margin-left: 15px; /* Space between menu items and cart icon */
+}
+
+
+
+
 
 
 
