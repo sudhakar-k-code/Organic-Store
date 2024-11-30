@@ -154,7 +154,7 @@ footer {
 #cart-badge {
     position: absolute; /* Absolute positioning for badge */
     top: -5px; /* Position above the cart icon */
-    right: -15px; /* Adjust to position the badge */
+    right: -20px; /* Adjust to position the badge */
     font-size: 0.7rem; /* Smaller font for badge */
     padding: 2px 5px; /* Padding around the badge for better visibility */
     border-radius: 50%; /* Round badge */
@@ -165,7 +165,7 @@ footer {
 /* Cart Icon styles */
 #cart-container {
     display: inline-block; /* Keep it inline with the navbar items */
-    margin-left: 15px; /* Space between menu items and cart icon */
+    margin-left: 2px; /* Space between menu items and cart icon */
 }
 
 
