@@ -2,25 +2,83 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
+    background-color: #f8f9fa; /* Light background for better contrast */
 }
 
 header {
     background: url('../images/hero.jpg') no-repeat center center/cover;
     min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
+    color: white;
 }
 
 h1, h2 {
     font-weight: bold;
+    animation: fadeIn 1s ease-in-out; /* Animation for headers */
 }
 
 /* Product Image Styles */
 .product-image {
     height: 200px; /* Set a fixed height */
     object-fit: cover; /* Cover the space while maintaining aspect ratio */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Animation effects on hover */
 }
 
 /* Card Styles */
 .card {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Smooth transform transition */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.card:hover .product-image {
+    transform: scale(1.1); /* Slightly enlarge image on card hover */
+    opacity: 0.9; /* Change opacity on hover */
+}
+
+/* Button Styles */
+.btn-success {
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Button hover effect */
+}
+
+.btn-success:hover {
+    background-color: #28a745; /* Slightly brighter green on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Additional styling for product prices */
+.mrp {
+    font-size: 1rem;
+    color: #dc3545; /* Red color for strikethrough MRP */
+    text-decoration: line-through;
+}
+
+.price {
+    font-size: 1.25rem;
+    color: #28a745; /* Green color for prices */
+    font-weight: bold;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #28a745; /* Green footer */
+    color: white;
+    padding: 10px 0;
 }
