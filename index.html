@@ -10,11 +10,13 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="images/logo.png" alt="Organic Store" width="30" height="30"> Organic Store
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="images/logo.png" alt="Organic Store" width="30" height="30" class="me-2">
+                <span>Organic Store</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -24,21 +26,40 @@
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link text-success" 
-						id="whatsapp-link" 
-						href="https://wa.me/123456789?text=Hi,%20I%20would%20like%20to%20place%20an%20order."  
-						target="_blank">
-                            <img src="images/whatsapp-icon.png" alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 5px;"> WhatsApp
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="#" id="cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
+                            <img src="images/cart-icon.png" alt="Cart" style="width: 25px; height: 25px;">
+                            <span id="cart-badge" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items"></div>
+                    <hr>
+                    <h6>Total Amount: <span id="cart-total">₹ 0.00</span></h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="place-order">Generate WhatsApp Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
-    <header class="bg-success text-white text-center py-5">
+    <header class="bg-success text-white text-center py-5" style="padding-top: 80px;"> <!-- Added padding-top -->
         <div class="container">
             <h1>Welcome to Organic Store</h1>
             <p>Your one-stop shop for organic and fresh products</p>
@@ -46,7 +67,7 @@
                 <h5>Order via WhatsApp</h5>
                 <a 
                     id="whatsapp-button" 
-                    href="https://wa.me/123456789?text=Hi,%20I%20would%20like%20to%20place%20an%20order."  
+                    href="https://wa.me/9047812407?text=Hi,%20I%20would%20like%20to%20place%20an%20order."  
                     target="_blank" 
                     class="btn btn-light">
                     <img src="images/whatsapp-icon.png" alt="WhatsApp" width="20" height="20"> Contact Us on WhatsApp
@@ -67,14 +88,12 @@
     <section id="products" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center">Our Products</h2>
-				<div class="row g-4 mt-4" id="product-list">
+            <div class="row g-4 mt-4" id="product-list">
                 <!-- Products will be populated here from JavaScript -->
-				</div>
-            <button class="btn btn-success mt-4" id="review-order">Review & Order</button>
-		</div>
+            </div>
+        </div>
     </section>
-	
-
+    
     <!-- Order Review Modal -->
     <div class="modal fade" id="orderReviewModal" tabindex="-1" aria-labelledby="orderReviewModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -124,7 +143,8 @@
                     </iframe>
                 </div>
             </div>
-	    </section>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-success text-white text-center py-3">

@@ -50,6 +50,10 @@ const products = [
     }
 ];
 
+// Initialize cart and total amount
+let cart = [];
+let totalAmount = 0;
+
 // Function to load products from the JavaScript object
 function loadProducts() {
     const productList = document.getElementById('product-list');
@@ -77,83 +81,109 @@ function loadProducts() {
         `;
         productList.insertAdjacentHTML('beforeend', productCard);
     });
+
+    // Attach change event to quantity selects
+    document.querySelectorAll('.quantity').forEach(select => {
+        select.addEventListener('change', (e) => {
+            const productName = e.target.getAttribute('data-product-name');
+            const quantity = parseFloat(e.target.value);
+            const priceText = e.target.closest('.card-body').querySelector('.price').innerText;
+            const price = parseFloat(priceText.replace('₹ ', '').replace('/kg', '').replace('/jar', ''));
+            addToCart(productName, quantity, price);
+        });
+    });
 }
 
 // Call the loadProducts function on page load
 window.onload = loadProducts;
 
+// Function to add an item to the cart
+function addToCart(productName, quantity, price) {
+    if (quantity === 0) return;
 
-// Function to handle the review and order process
-function handleOrderReview() {
-    const quantities = document.querySelectorAll('.quantity');
-    let orderSummary = '';
-    let totalPrice = 0;
+    const totalPrice = quantity * price;
+    const existingItem = cart.find(item => item.name === productName);
+    
+    if (existingItem) {
+        existingItem.quantity += quantity;
+        existingItem.totalPrice += totalPrice;
+    } else {
+        cart.push({ name: productName, quantity, price, totalPrice });
+    }
 
-    quantities.forEach(select => {
-        const productName = select.getAttribute('data-product-name');
-		console.log(productName);
-        const quantity = parseFloat(select.value);
-		console.log(quantity);
-        if (quantity > 0) {
-            let priceText = select.parentElement.querySelector('.price').innerText;
-			console.log(priceText);
-            let price = parseFloat(priceText.replace('₹ ', '').replace('/kg', '').replace('/jar', ''));
-			console.log(price);
-            totalPrice += price * quantity;
-			console.log(totalPrice);
-            orderSummary += `<p>${quantity} x ${productName} at ${priceText}</p>`;
-        }
-    });
-
-    document.getElementById('order-summary').innerHTML = orderSummary || '<p>No products selected.</p>';
-    document.getElementById('total-amount').innerText = `₹ ${totalPrice.toFixed(2)}`;
-    const orderReviewModal = new bootstrap.Modal(document.getElementById('orderReviewModal'));
-    orderReviewModal.show();
+    updateCartBadge();
+    updateCartModal();
+    showCartNotification(); // Call the notification function
 }
 
+// Function to show the cart notification
+function showCartNotification() {
+    const cartNotification = document.getElementById('cart-notification');
+    cartNotification.style.display = 'block';
 
-// Event Listeners
-document.getElementById('review-order').addEventListener('click', handleOrderReview);
-
-
-// Function to handle zooming when the product is in the middle of the screen
-function handleZoomOnScroll() {
-    const productImages = document.querySelectorAll('.product-image');
-
-    productImages.forEach(image => {
-        const rect = image.getBoundingClientRect(); // Get the position of the image relative to the viewport
-        const windowHeight = window.innerHeight; // Height of the viewport
-        const imageCenter = rect.top + rect.height / 2; // Calculate the image's vertical center
-        const screenCenter = windowHeight / 2; // Calculate the screen's vertical center
-
-        // Check if the image's center is near the screen's center
-        if (Math.abs(imageCenter - screenCenter) < rect.height / 2) {
-            // Zoom the image as it gets closer to the center of the screen
-            image.style.transform = `scale(1.2)`;
-        } else {
-            image.style.transform = 'scale(1)'; // Reset zoom if out of the center
-        }
-    });
+    setTimeout(() => {
+        cartNotification.style.display = 'none';
+    }, 3000); // Notification will be visible for 3 seconds
 }
 
-// Add scroll event listener
-window.addEventListener('scroll', handleZoomOnScroll);
+// Function to update cart badge
+function updateCartBadge() {
+    document.getElementById('cart-badge').innerText = cart.length;
+}
+
+// Function to update cart modal
+function updateCartModal() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        cartTotal.innerText = '₹ 0.00';
+        return;
+    }
+
+    let cartHTML = '';
+    totalAmount = 0;
+    cart.forEach((item, index) => {
+        const { name, quantity, price, totalPrice } = item;
+        totalAmount += totalPrice;
+
+        cartHTML += `
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <strong>${name}</strong><br>
+                    ${quantity} at ₹ ${price} each
+                </div>
+                <div>
+                    <strong>₹ ${totalPrice.toFixed(2)}</strong>
+                    <button class="btn btn-sm btn-danger ms-3" onclick="removeFromCart(${index})">Remove</button>
+                </div>
+            </div>
+        `;
+    });
+
+    cartItemsContainer.innerHTML = cartHTML;
+    cartTotal.innerText = `₹ ${totalAmount.toFixed(2)}`;
+}
+
+// Function to remove an item from the cart
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartBadge();
+    updateCartModal();
+}
+
+// Attach click event for cart icon to review the cart
+document.getElementById('cart-icon').addEventListener('click', updateCartModal);
 
 // Function to generate WhatsApp link
 function generateWhatsAppLink() {
-    const quantities = document.querySelectorAll('.quantity');
     let message = "Hi, I would like to order:\n";
     let totalPrice = 0;
 
-    quantities.forEach(select => {
-        const productName = select.getAttribute('data-product-name');
-        const quantity = parseFloat(select.value);
-        if (quantity > 0) {
-            let priceText = select.parentElement.querySelector('.price').innerText;
-            let price = parseFloat(priceText.replace('₹ ', '').replace('/kg', '').replace('/jar', ''));
-            totalPrice += price * quantity;
-            message += `${quantity} x ${productName} at ${priceText}\n`;
-        }
+    cart.forEach(item => {
+        message += `${item.quantity} x ${item.name} at ₹ ${item.price} each\n`;
+        totalPrice += item.totalPrice;
     });
 
     message += `Total: ₹ ${totalPrice.toFixed(2)}`;
@@ -164,5 +194,8 @@ function generateWhatsAppLink() {
     window.open(whatsappLink, '_blank');
 }
 
+// Event Listener for Place Order button
+document.getElementById('place-order').addEventListener('click', generateWhatsAppLink);
 
-document.getElementById('generate-whatsapp-link').addEventListener('click', generateWhatsAppLink);
+
+
