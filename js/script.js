@@ -194,6 +194,30 @@ function generateWhatsAppLink() {
 // Event Listener for Place Order button
 document.getElementById('place-order').addEventListener('click', generateWhatsAppLink);
 
+// Function to handle zooming when the product is in the middle of the screen
+function handleZoomOnScroll() {
+    const productImages = document.querySelectorAll('.product-image');
+
+    productImages.forEach(image => {
+        const rect = image.getBoundingClientRect(); // Get the position of the image relative to the viewport
+        const windowHeight = window.innerHeight; // Height of the viewport
+        const imageCenter = rect.top + rect.height / 2; // Calculate the image's vertical center
+        const screenCenter = windowHeight / 2; // Calculate the screen's vertical center
+
+        // Check if the image's center is near the screen's center
+        if (Math.abs(imageCenter - screenCenter) < rect.height / 2) {
+            // Zoom the image as it gets closer to the center of the screen
+            image.style.transform = `scale(1.2)`;
+        } else {
+            image.style.transform = 'scale(1)'; // Reset zoom if out of the center
+        }
+    });
+}
+
+// Add scroll event listener
+window.addEventListener('scroll', handleZoomOnScroll);
+
+
 // Function to show cart notification below the cart icon
 function showCartNotification() {
     const notification = document.createElement('div');
@@ -214,5 +238,43 @@ function showCartNotification() {
         setTimeout(() => notification.remove(), 500); // Delay for fade-out effect
     }, 3000);
 }
+
+// JavaScript for handling menu popup
+const menuIcon = document.getElementById('menu-icon');
+const menuPopup = document.getElementById('menu-popup');
+
+// Function to show the popup menu
+function showPopup() {
+    const rect = menuIcon.getBoundingClientRect(); // Get the position of the menu icon
+    menuPopup.style.top = `${rect.bottom + window.scrollY}px`; // Position below the menu icon
+    menuPopup.style.right = `10px`; // Align it to the right
+    menuPopup.style.display = 'block'; // Show the menu
+}
+
+// Show popup menu when the menu icon is clicked
+menuIcon.addEventListener('click', (event) => {
+    event.stopPropagation(); // Prevent the event from bubbling up
+    if (menuPopup.style.display === 'block') {
+        menuPopup.style.display = 'none'; // Hide if already visible
+    } else {
+        showPopup(); // Show the popup and set its position
+    }
+});
+
+// Hide popup menu when clicking outside the menu
+document.addEventListener('click', (e) => {
+    if (!menuPopup.contains(e.target) && e.target !== menuIcon) {
+        menuPopup.style.display = 'none'; // Hide the menu if clicked outside
+    }
+});
+
+// Hide the menu when a link is clicked and smooth scroll
+document.querySelectorAll('.menu-link').forEach(link => {
+    link.addEventListener('click', () => {
+        menuPopup.style.display = 'none'; // Hide the menu on link click
+    });
+});
+
+
 
 

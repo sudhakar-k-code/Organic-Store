@@ -190,10 +190,61 @@ footer {
 }
 
 
+/* Style for Popup Menu */
+.menu-popup {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it absolutely relative to the navbar */
+    top: 60px; /* Adjust based on navbar height */
+    right: 10px; /* Align to the right */
+    background-color: #ffffff; /* White background */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    z-index: 1050; /* Above other elements */
+    padding: 15px; /* Padding around content */
+}
 
+.menu-popup ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
 
+.menu-popup li {
+    margin: 10px 0; /* Space between items */
+}
 
+.menu-popup a {
+    text-decoration: none;
+    color: #333; /* Dark text color */
+    transition: color 0.3s;
+}
 
+.menu-popup a:hover {
+    color: #007bff; /* Change color on hover */
+}
 
+/* Arrow for Popup Menu */
+.menu-popup::before {
+    content: '';
+    position: absolute;
+    top: -10px; /* Position above the popup */
+    right: 20px; /* Position to point towards the menu icon */
+    border-width: 10px; /* Size of the arrow */
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent; /* White arrow */
+}
 
+/* Ensure icons are adjacent */
+.icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon-container .btn {
+    margin-left: 10px; /* Space between icons */
+}
+
+section {
+    padding-top: 80px; /* Adjust this based on your navbar height */
+}
 
